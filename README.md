@@ -1,30 +1,53 @@
-# Python Code: Function Checker with Decorators
+# Опис коду
 
-This script demonstrates the use of a `checker` function as a decorator to handle exceptions and print results for the wrapped functions. The script includes two functions: `calculate` and `divisoin`, each decorated with `@checker`.
+Цей Python-код демонструє використання функції-декоратора `checker` для обробки виключень та виведення результатів виконання інших функцій. Код складається з:
 
-## Code
+- **Функції-декоратора `checker`** — обробляє виключення, які можуть виникнути під час виконання переданих функцій, і виводить результат.
+- **Декорованих функцій**:
+  - `calculate`: обчислює математичний вираз, переданий у вигляді рядка.
+  - `divisoin`: виконує ділення двох чисел.
+
+
+
+Декоратор checker:
+
+Функція checker приймає будь-які аргументи (*args, **kwargs) для обробки викликів функцій, до яких вона застосовується.
+За допомогою конструкції try-except-else:
+Виконує передану функцію.
+У разі помилки виводить повідомлення із деталями помилки.
+Якщо помилки немає, виводить результат виконання функції.
+Декоровані функції:
+
+calculate використовує функцію eval для обчислення рядкових математичних виразів, наприклад, "2+2".
+divisoin виконує ділення двох чисел і повертає результат.
+Приклади виконання:
+
+Рядковий вираз "2+1" перетворюється у число 3.
+Операція 4 / 2 повертає 2.0.
+---
+
+## Код
+
 ```python
+# Декоратор для перевірки виконання функцій
 def checker(*args, **kwargs):
     try:
-        resoult = function(*args, **kwargs)
-    except Exception as exc:
-        print(f"We have problems {exc}")
+        resoult = function(*args, **kwargs)  # Виконання функції
+    except Exception as exc:  # Обробка виключень
+        print(f"Маємо проблему: {exc}")
     else:
-        print(f"Resoult - {resoult}")
+        print(f"Результат: {resoult}")
 
-
+# Декорована функція для обчислення математичних виразів
 @checker  
-def calculate(expresssion):
-    return eval(expresssion)
+def calculate(expression):
+    return eval(expression)  # Використовує eval для обчислення виразу
 
-
+# Декорована функція для виконання ділення
 @checker
 def divisoin(number, div):
     return number / div
 
-# checker(calculate, "2+2")
-
-# calculate = checker(calculate)
-
-calculate("2+1")
-divisoin(4, 2)
+# Приклади використання
+calculate("2+1")  # Результат обчислення: 3
+divisoin(4, 2)    # Результат ділення: 2.0
